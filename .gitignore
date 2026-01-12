@@ -1,0 +1,33 @@
+# Checkpoints (too large for git)
+*.pt
+checkpoints/
+
+# Data files (users download separately)
+*.txt
+*.zip
+*.bin
+enwik8*
+enwik9*
+
+# Training logs
+*.log
+*.jsonl
+*_log.json
+training_*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+tmpclaude-*
