@@ -1,6 +1,6 @@
 # Mina: A Bidirectional Transformer That Corrects Its Own Predictions
 
-A 30.6M parameter model achieving **0.22 BPC** on held-out data—down from 1.53 BPC using forward-only prediction. **94% of token positions improve** when the model can reconsider them.
+A 38.5M parameter model achieving **0.22 BPC** on held-out data—down from 1.53 BPC using forward-only prediction. **94% of token positions improve** when the model can reconsider them.
 
 ## The Architecture
 
@@ -11,9 +11,9 @@ The model runs three passes:
 3. **Correction**: Predict again with cross-attention to retrodiction hidden states
 
 ```
-Forward:     X → [8 shared layers, causal] → logits
-Retrodiction: P → [8 shared layers, anti-causal] → hidden states
-Correction:  X → [4 correction layers] → refined logits
+Forward:     X → [10 shared layers, causal] → logits
+Retrodiction: P → [10 shared layers, anti-causal] → hidden states
+Correction:  X → [5 correction layers] → refined logits
                     ↑ cross-attention to retrodiction
 ```
 
@@ -36,7 +36,7 @@ Download the pretrained checkpoint from [Releases](../../releases):
 
 | Model | Params | Dataset | Correction BPC | Download |
 |-------|--------|---------|----------------|----------|
-| Mina 0.1 | 30.6M | enwik8 | 0.22 | [mina_0.1_30m_enwik8.tar.gz](../../releases/download/v0.1/mina_0.1_30m_enwik8.tar.gz) |
+| Mina 0.1 | 38.5M | enwik8 | 0.22 | [mina_0.1_30m_enwik8.tar.gz](../../releases/download/v0.1/mina_0.1_30m_enwik8.tar.gz) |
 
 ```bash
 # Download and extract
@@ -77,7 +77,7 @@ python test_held_out.py --checkpoint best_model.pt
 
 | File | Description |
 |------|-------------|
-| `model.py` | Bidirectional 1.0 architecture (30.6M params) |
+| `model.py` | Bidirectional 1.0 architecture (38.5M params) |
 | `train.py` | Training loop with gradient accumulation |
 | `data.py` | enwik8 data loading |
 | `test_held_out.py` | Held-out evaluation on enwik9 |

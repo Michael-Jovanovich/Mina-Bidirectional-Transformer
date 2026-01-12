@@ -41,8 +41,8 @@ class TransformerConfig:
     vocab_size: int = 256
     embed_dim: int = 384
     n_heads: int = 6
-    n_shared_layers: int = 8      # Shared forward/retrodiction layers (increased!)
-    n_correction_layers: int = 4  # Correction-specific layers (reduced)
+    n_shared_layers: int = 10     # Shared forward/retrodiction layers
+    n_correction_layers: int = 5  # Correction-specific layers with cross-attention
     seq_length: int = 512
     mlp_ratio: int = 4
     dropout: float = 0.1
@@ -206,9 +206,9 @@ class CorrectionBlock(nn.Module):
 class BidirectionalTransformer(nn.Module):
     """Mina: Bidirectional transformer with self-correction.
 
-    Based on gradient profile analysis:
-    - More shared layers (8) for forward/retrodiction processing
-    - Fewer correction layers (4) since cross-attention has adequate capacity
+    Architecture (38.5M params):
+    - 10 shared layers for forward/retrodiction processing
+    - 5 correction layers with cross-attention to retrodiction hidden states
     - Enhanced direction embedding with learned transformation
 
     Correction cross-attends to the LAST n_correction_layers hidden states
